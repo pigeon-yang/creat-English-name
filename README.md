@@ -144,6 +144,26 @@ node server.js
 4. 启动服务器：`node server.js`
 5. 访问 http://localhost:3000
 
+### 部署到Vercel
+
+#### 方法一：通过GitHub自动部署
+1. 将代码推送到GitHub仓库
+2. 在Vercel中导入GitHub仓库
+3. 配置环境变量：
+   - `API_KEY`: 你的DeepSeek API密钥
+   - `API_URL`: API服务地址（可选）
+4. Vercel会自动部署
+
+#### 方法二：通过Vercel CLI部署
+1. 安装Vercel CLI: `npm i -g vercel`
+2. 在项目目录运行: `vercel`
+3. 按照提示完成部署
+
+#### 环境变量配置
+在Vercel项目设置中配置以下环境变量：
+- `API_KEY`: DeepSeek API密钥
+- `API_URL`: API服务地址（可选，默认已配置）
+
 ### 生产环境部署
 - 建议使用PM2等进程管理工具
 - 配置反向代理 (如Nginx)

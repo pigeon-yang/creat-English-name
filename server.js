@@ -3,8 +3,8 @@ const https = require('https');
 const url = require('url');
 const querystring = require('querystring');
 
-const API_KEY = 'a2e73fa6-c7c0-4367-a800-6135a53e424c';
-const API_URL = 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
+const API_KEY = process.env.API_KEY || 'a2e73fa6-c7c0-4367-a800-6135a53e424c';
+const API_URL = process.env.API_URL || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
 
 // 创建HTTP服务器
 const server = http.createServer(async (req, res) => {
@@ -320,7 +320,7 @@ function generateFallbackNames(chineseName) {
 }
 
 // 启动服务器
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`服务器运行在 http://localhost:${PORT}`);
     console.log('英文名生成器已启动！');
