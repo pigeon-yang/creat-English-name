@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI智能英文名生成器 - 为中文名字创造有趣、有创意的英文对应名">
+    <meta name="keywords" content="英文名,中文名,AI生成,名字寓意,幽默名字">
+    <title>🎯 智能英文名生成器 | AI驱动的个性化英文名创作</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- 苹果风格图标 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+    <div class="container" role="main">
+        <header>
+            <h1>🎯 智能英文名生成器</h1>
+            <p class="subtitle">AI驱动的个性化英文名创作，让每个名字都充满故事与魅力</p>
+            
+            <!-- 特色功能展示 -->
+            <div class="feature-grid" aria-label="特色功能">
+                <div class="feature-item">
+                    <span class="feature-icon">🤖</span>
+                    <span class="feature-text">AI智能生成</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎭</span>
+                    <span class="feature-text">幽默创意</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📚</span>
+                    <span class="feature-text">文化寓意</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <span class="feature-text">即时生成</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- 输入区域 -->
+            <section class="input-section" aria-labelledby="input-title">
+                <h2 id="input-title" class="sr-only">输入中文名字</h2>
+                
+                <div class="input-group">
+                    <label for="chineseName" class="input-label">
+                        <span class="label-icon">👤</span>
+                        请输入您的中文名字
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="chineseName" 
+                               placeholder="例如：张三、李四、王五..." 
+                               maxlength="10"
+                               aria-describedby="name-hint"
+                               autocomplete="name">
+                        <span class="input-hint" id="name-hint">支持2-4个中文字符</span>
+                    </div>
+                </div>
+                
+                <button id="generateBtn" class="generate-btn" aria-label="生成英文名字">
+                    <span class="btn-icon">✨</span>
+                    <span class="btn-text">生成英文名</span>
+                    <span class="loading-spinner" aria-hidden="true" style="display: none;">
+                        <span class="spinner-dot"></span>
+                        <span class="spinner-dot"></span>
+                        <span class="spinner-dot"></span>
+                    </span>
+                </button>
+            </section>
+
+            <!-- 结果展示区域 -->
+            <section id="resultSection" class="result-section" style="display: none;" aria-labelledby="result-title">
+                <h2 id="result-title">🎉 为您精心生成的英文名</h2>
+                <p class="result-subtitle">每个名字都蕴含着独特的文化寓意和幽默创意</p>
+                
+                <div id="namesContainer" class="names-container" role="list" aria-label="生成的英文名列表">
+                    <!-- 英文名卡片将在这里动态生成 -->
+                </div>
+                
+                <div class="result-actions">
+                    <button id="regenerateBtn" class="secondary-btn" aria-label="重新生成英文名">
+                        <span class="btn-icon">🔄</span>
+                        重新生成
+                    </button>
+                    <button id="shareBtn" class="secondary-btn" aria-label="分享结果">
+                        <span class="btn-icon">📤</span>
+                        分享结果
+                    </button>
+                </div>
+            </section>
+
+            <!-- 错误提示区域 -->
+            <section id="errorSection" class="error-section" style="display: none;" aria-live="assertive" aria-atomic="true">
+                <div class="error-message" role="alert">
+                    <span class="error-icon" aria-hidden="true">⚠️</span>
+                    <span id="errorText"></span>
+                </div>
+            </section>
+
+            <!-- 使用说明 -->
+            <section class="instructions-section" aria-labelledby="instructions-title">
+                <h3 id="instructions-title" class="sr-only">使用说明</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <span class="instruction-number">1</span>
+                        <p>输入您的中文名字（2-4个汉字）</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-number">2</span>
+                        <p>点击生成按钮，AI将为您创作</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-number">3</span>
+                        <p>查看每个名字的寓意和幽默说明</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer role="contentinfo">
+            <p>Powered by DeepSeek R1 AI • 让起名变得有趣而优雅</p>
+            <p class="footer-note">每个名字都是AI的独特创作，蕴含着文化智慧与幽默创意</p>
+        </footer>
+    </div>
+
+    <!-- 屏幕阅读器专用内容 -->
+    <div class="sr-only" aria-live="polite" aria-atomic="true">
+        <span id="status-message"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

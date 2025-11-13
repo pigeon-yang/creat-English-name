@@ -1,0 +1,13 @@
+{
+  "name": "english-name-generator",
+  "version": "1.0.0",
+  "description": "AI-powered English name generator for Chinese people",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["english", "name", "generator", "ai"],
+  "author": "",
+  "license": "MIT"
+}

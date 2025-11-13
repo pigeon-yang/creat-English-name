@@ -1,0 +1,552 @@
+/* 苹果设计风格重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --apple-white: #ffffff;
+    --apple-black: #1d1d1f;
+    --apple-gray-1: #f5f5f7;
+    --apple-gray-2: #d2d2d7;
+    --apple-gray-3: #86868b;
+    --apple-blue: #0071e3;
+    --apple-blue-light: #2997ff;
+    --apple-green: #34c759;
+    --apple-red: #ff3b30;
+    --apple-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --apple-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    color: var(--apple-black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 苹果风格的头部设计 */
+header {
+    text-align: center;
+    margin-bottom: 48px;
+    color: var(--apple-black);
+}
+
+header h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #0071e3 0%, #34c759 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    color: var(--apple-gray-3);
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+/* 主内容区域 - 苹果卡片设计 */
+main {
+    flex: 1;
+    background: var(--apple-white);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: var(--apple-shadow);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.input-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.input-group {
+    margin-bottom: 32px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    color: var(--apple-black);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* 苹果风格的输入框 */
+#chineseName {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px 24px;
+    font-size: 1.2rem;
+    border: 2px solid var(--apple-gray-2);
+    border-radius: 16px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: var(--apple-gray-1);
+    color: var(--apple-black);
+    font-weight: 500;
+}
+
+#chineseName:focus {
+    border-color: var(--apple-blue);
+    background: var(--apple-white);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+    transform: translateY(-1px);
+}
+
+/* 苹果风格的按钮 */
+.generate-btn {
+    background: linear-gradient(135deg, var(--apple-blue) 0%, var(--apple-blue-light) 100%);
+    color: var(--apple-white);
+    border: none;
+    padding: 20px 48px;
+    font-size: 1.3rem;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-weight: 600;
+    box-shadow: var(--apple-shadow);
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.generate-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.generate-btn:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--apple-shadow-hover);
+}
+
+.generate-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.generate-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 结果展示区域 - 苹果卡片设计 */
+.result-section {
+    animation: appleFadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.result-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--apple-black);
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.names-container {
+    display: grid;
+    gap: 24px;
+}
+
+/* 苹果风格的名字卡片 */
+.name-card {
+    background: linear-gradient(135deg, var(--apple-gray-1) 0%, var(--apple-white) 100%);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--apple-shadow);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.name-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--apple-blue), var(--apple-green));
+}
+
+.name-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--apple-shadow-hover);
+}
+
+.name-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.name-icon {
+    font-size: 2.4rem;
+    margin-right: 20px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.name-text {
+    flex: 1;
+}
+
+.english-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--apple-black);
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+}
+
+.name-index {
+    font-size: 1rem;
+    color: var(--apple-gray-3);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.meaning-section {
+    margin-top: 20px;
+}
+
+.meaning-section h4 {
+    color: var(--apple-gray-3);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meaning-text {
+    background: var(--apple-white);
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--apple-black);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* 错误提示区域 */
+.error-section {
+    animation: appleFadeIn 0.6s ease;
+}
+
+.error-message {
+    background: rgba(255, 59, 48, 0.05);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    color: var(--apple-red);
+    font-weight: 500;
+}
+
+.error-icon {
+    font-size: 1.6rem;
+    margin-right: 12px;
+}
+
+/* 特色功能网格 */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.feature-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.feature-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* 输入标签图标 */
+.label-icon {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+/* 结果操作按钮 */
+.result-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.secondary-btn {
+    padding: 12px 16px;
+    background: var(--apple-gray-2);
+    color: var(--apple-black);
+    border: 1px solid var(--apple-gray-2);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.secondary-btn:hover {
+    background: var(--apple-gray-2);
+    transform: translateY(-1px);
+}
+
+/* 使用说明区域 */
+.instructions-section {
+    margin-top: 48px;
+    padding: 32px;
+    background: var(--apple-gray-1);
+    border-radius: 20px;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.instruction-item {
+    text-align: center;
+    padding: 16px;
+}
+
+.instruction-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--apple-blue);
+    color: var(--apple-white);
+    border-radius: 50%;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+.instruction-item p {
+    color: var(--apple-gray-3);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* 页脚样式 */
+footer {
+    text-align: center;
+    padding: 32px 40px;
+    background: var(--apple-gray-1);
+    border-top: 1px solid var(--apple-gray-2);
+}
+
+.footer-note {
+    font-size: 0.875rem;
+    color: var(--apple-gray-3);
+    margin-top: 8px;
+}
+
+/* 屏幕阅读器专用样式 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 页脚设计 */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--apple-gray-3);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+/* 苹果风格动画 */
+@keyframes appleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.loading-spinner {
+    display: inline-block;
+    animation: appleSpin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+}
+
+@keyframes appleSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* 苹果风格的响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+    
+    header h1 {
+        font-size: 2.4rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    main {
+        padding: 32px 24px;
+        border-radius: 20px;
+    }
+    
+    .name-card {
+        padding: 24px 20px;
+        border-radius: 16px;
+    }
+    
+    .english-name {
+        font-size: 1.8rem;
+    }
+    
+    .name-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    
+    .name-icon {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+    
+    .generate-btn {
+        width: 100%;
+        max-width: none;
+        padding: 20px 32px;
+    }
+    
+    #chineseName {
+        max-width: none;
+    }
+    
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .secondary-btn {
+        width: 200px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+    
+    main {
+        padding: 24px 16px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .result-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .english-name {
+        font-size: 1.6rem;
+    }
+    
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
