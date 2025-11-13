@@ -6,8 +6,11 @@ const querystring = require('querystring');
 const API_KEY = process.env.API_KEY || 'a2e73fa6-c7c0-4367-a800-6135a53e424c';
 const API_URL = process.env.API_URL || 'https://ark.cn-beijing.volces.com/api/v3/chat/completions';
 
-// 创建HTTP服务器
-const server = http.createServer(async (req, res) => {
+// 检查是否在Vercel环境中
+const isVercel = !!process.env.VERCEL;
+
+// 处理API请求的函数 - 适用于Vercel无服务器环境
+async function handleApiRequest(req, res) {
     // 设置CORS头
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -20,26 +23,8 @@ const server = http.createServer(async (req, res) => {
         return;
     }
     
-    // 处理静态文件请求
-    if (req.method === 'GET') {
-        const parsedUrl = url.parse(req.url);
-        const pathname = parsedUrl.pathname;
-        
-        if (pathname === '/') {
-            serveStaticFile(res, './index.html', 'text/html');
-        } else if (pathname === '/style.css') {
-            serveStaticFile(res, './style.css', 'text/css');
-        } else if (pathname === '/script.js') {
-            serveStaticFile(res, './script.js', 'application/javascript');
-        } else {
-            res.writeHead(404, { 'Content-Type': 'text/plain' });
-            res.end('Not Found');
-        }
-        return;
-    }
-    
     // 处理API请求
-    if (req.method === 'POST' && req.url === '/api/generate-names') {
+    if (req.method === 'POST' && (req.url === '/api/generate-names' || req.url === '/generate-names')) {
         let body = '';
         
         req.on('data', chunk => {
@@ -90,6 +75,14 @@ function serveStaticFile(res, filePath, contentType) {
         res.writeHead(200, { 'Content-Type': contentType });
         res.end(data);
     });
+}
+
+        return;
+    }
+    
+    // 默认404响应
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
 }
 
 // 调用DeepSeek API
@@ -319,18 +312,55 @@ function generateFallbackNames(chineseName) {
     return generateEnhancedFallbackNames(chineseName);
 }
 
-// 启动服务器
+// 对于本地开发环境，创建HTTP服务器
+const server = http.createServer(async (req, res) => {
+    // 处理静态文件请求 - 仅在本地环境
+    if (req.method === 'GET') {
+        const parsedUrl = url.parse(req.url);
+        const pathname = parsedUrl.pathname;
+        
+        if (pathname === '/') {
+            serveStaticFile(res, './index.html', 'text/html');
+        } else if (pathname === '/style.css') {
+            serveStaticFile(res, './style.css', 'text/css');
+        } else if (pathname === '/script.js') {
+            serveStaticFile(res, './script.js', 'application/javascript');
+        } else {
+            // 其他请求交给handleApiRequest处理
+            await handleApiRequest(req, res);
+        }
+        return;
+    }
+    
+    // 处理所有API请求
+    await handleApiRequest(req, res);
+});
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`服务器运行在 http://localhost:${PORT}`);
-    console.log('英文名生成器已启动！');
+    console.log(`服务器运行在端口 ${PORT}`);
 });
 
 server.on('error', (error) => {
-    if (error.code === 'EADDRINUSE') {
-        console.log(`端口 ${PORT} 已被占用，尝试使用端口 ${PORT + 1}`);
-        server.listen(PORT + 1);
-    } else {
-        console.error('服务器启动错误:', error);
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    const bind = typeof PORT === 'string' ? 'Pipe ' + PORT : 'Port ' + PORT;
+
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' 需要管理员权限');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' 端口已被占用');
+            process.exit(1);
+            break;
+        default:
+            throw error;
     }
 });
+
+// 导出处理函数，以便在需要时可以作为模块使用
+module.exports = handleApiRequest;
